@@ -1,0 +1,38 @@
+<?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * Block to send notification identified users based on missing or filled optional/custom fields.
+ *
+ * @package    block_profile_field_idntifier
+ * @copyright  3i Logic<lms@3ilogic.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL
+ */
+
+defined('MOODLE_INTERNAL') || die;
+
+if ($ADMIN->fulltree) {
+
+
+    // ROLE SETTINGS
+
+    $settings->add(new admin_setting_heading(
+            'headerrolesettings', 'Role settings', 'Define the users that can receive Message'
+    ));
+
+
+    $settings->add(new admin_setting_configselect('block_pfi_rolenames', 'Role names to use', 'Select Moodle role names which you want to use', 'Moodle short names', array('Moodle short names', 'Custom names', 'Archetypes')), 'Moodle short names');
+}
