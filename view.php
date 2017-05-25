@@ -46,7 +46,71 @@ $PAGE->set_heading(get_string("pluginname", 'block_profile_field_identifier'));
 $pageurl = new moodle_url('/blocks/profile_field_identifier/view.php?viewpage=' . $viewpage);
 $PAGE->navbar->ignore_active();
 $PAGE->navbar->add(get_string("pluginname", 'block_profile_field_identifier'));
+
+$context = context_system::instance();
+if (!has_capability('block/profile_field_identifier:sendmessages', $context)) {
+  redirect($CFG->wwwroot);
+}
+
 echo $OUTPUT->header();
+?>
+
+<!-- DataTables code starts-->
+<link rel="stylesheet" type="text/css" href="public/datatable/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css" href="public/datatable/dataTables.tableTools.css">
+<script type="text/javascript" language="javascript" src="public/datatable/jquery.js"></script>
+<script type="text/javascript" language="javascript" src="public/datatable/jquery.dataTables.js"></script>
+<script type="text/javascript" language="javascript" src="public/datatable/dataTables.tableTools.js"></script>
+<script type="text/javascript" language="javascript" class="init">
+    /*$(document).ready(function () {
+		// fn for automatically adjusting table coulmns
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            $($.fn.dataTable.tables(true)).DataTable()
+                    .columns.adjust();
+        });
+
+        $('.display').DataTable({
+            dom: 'T<"clear">lfrtip',
+            tableTools: {
+                "aButtons": [
+                    "copy",
+                    "print",
+                    {
+                        "sExtends": "collection",
+                        "sButtonText": "Save",
+                        "aButtons": ["xls", "pdf"]
+                    }
+                ],
+                "sSwfPath": "public/datatable/copy_csv_xls_pdf.swf"
+            }
+        });
+    });*/
+</script>
+<!-- DataTables code ends-->
+
+<!-- Check/Uncheck All Starts -->
+<script type="text/javascript" language="javascript"> 
+var act=0; 
+function setCheckboxes() {
+	if(act == 0) {
+	act = 1;	
+	}
+	else {
+	act = 0;	
+	}
+  var e = document.getElementsByClassName('check_list');
+  var elts_cnt  = (typeof(e.length) != 'undefined') ? e.length : 0;
+  if (!elts_cnt) {
+    return;
+  }
+  for (var i = 0; i < elts_cnt; i++) {
+    e[i].checked = (act == 1 || act == 0) ? act : (e[i].checked ? 0 : 1);
+  }
+}
+</script> 
+<!-- Check/Uncheck All Ends -->
+
+<?php
 // Form Display.
 if ($viewpage == 1) {
     $a = "";

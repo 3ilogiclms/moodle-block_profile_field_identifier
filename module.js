@@ -1,4 +1,6 @@
 // JavaScript Document.
+		
+		
 M.block_profile_field_identifier = {};
 M.block_profile_field_identifier.init = function(Y) {
 // Load Message on Message Body
@@ -76,9 +78,33 @@ M.block_profile_field_identifier.init = function(Y) {
                     var json = e.responseText;
                     console.log(json);
                     userlist.set('innerHTML', json);
+				
+				// datatable starts
+				$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            	$($.fn.dataTable.tables(true)).DataTable()
+                    .columns.adjust();
+        		});
+
+       			 $('.display').DataTable({
+            	dom: 'T<"clear">lfrtip',
+            	tableTools: {
+                "aButtons": [
+                    "copy",
+                    "print",
+                    {
+                        "sExtends": "collection",
+                        "sButtonText": "Save",
+                        "aButtons": ["xls", "pdf"]
+                    }
+                ],
+                "sSwfPath": "public/datatable/copy_csv_xls_pdf.swf"
+           		 }
+        		});	
+				// datatable ends
                 }
             }
         });
+			
     });
     showuser.on('click', function() {
         var id_fid = Y.one("#id_fid").get('value');
@@ -97,6 +123,30 @@ M.block_profile_field_identifier.init = function(Y) {
                     var json = e.responseText;
                     console.log(json);
                     userlist.set('innerHTML', json);
+					
+				// datatable starts
+				$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            	$($.fn.dataTable.tables(true)).DataTable()
+                    .columns.adjust();
+        		});
+
+       			$('.display').DataTable({
+				
+            	dom: 'T<"clear">lfrtip',
+            	tableTools: {
+                "aButtons": [
+					"copy",
+                    "print",
+                    {
+                        "sExtends": "collection",
+                        "sButtonText": "Save",
+                        "aButtons": ["xls", "pdf"]
+                    }
+                ],
+                "sSwfPath": "public/datatable/copy_csv_xls_pdf.swf"
+           		 }
+        		});	
+				// datatable ends
                 }
             }
         });

@@ -40,6 +40,7 @@ class field_identifier_form extends moodleform {
         global $DB, $CFG;
         $mform = & $this->_form;
         $mform->addElement('header', 'profile_field_identifier', get_string('profile_field_identifier', 'block_profile_field_identifier'));
+		
         $attributes = array('10' => 'Optional Field', '20' => 'Custom Field');
         $mform->addElement('select', 'ftid', get_string('selectfieldtype', 'block_profile_field_identifier'), $attributes);
         $attributes = array('picture' => 'Profile Picture', 'skype' => 'Skype', 'url' => 'Web page', 'icq' => 'ICQ number'
@@ -154,14 +155,16 @@ class field_identifier_form extends moodleform {
             }
         }
         $table = new html_table();
-        $table->attributes = array("class" => "table-sorter");
-        $table->head = array(get_string('profile_picture', 'block_profile_field_identifier'), get_string('fullname', 'block_profile_field_identifier'), ucfirst($field), get_string('select', 'block_profile_field_identifier'));
+        /*$table->attributes = array("class" => "table-sorter");*/
+		$table->attributes = array("class" => "display");
+		$table->head = array(get_string('profile_picture', 'block_profile_field_identifier'), get_string('fullname', 'block_profile_field_identifier'), ucfirst($field), "<a href='javascript:setCheckboxes();' style='color:#333;' class='chkmenu'>Select | unselect all</a>");
         $table->size = array('30%', '30%', '30%', '10%');
         $table->align = array('center', 'left', 'left', 'center');
         $table->width = '100%';
         $table->data = array();
         $rs = $DB->get_recordset_sql($sql, array($courseid, $roleid));
-
+		
+		if ($DB->record_exists_sql($sql, array($courseid, $roleid))) {
         foreach ($rs as $log) {
             $row = array();
             $user = $DB->get_record('user', array('id' => $log->id));
@@ -179,8 +182,13 @@ class field_identifier_form extends moodleform {
                     $log->data = '-';
                 $row[] = $log->data;
             }
-            $row[] = "<center><input type='checkbox' class='usercheckbox' name='user[]' value='$log->id'/></center>";
+			
+            $row[] = "<center><input style='width:20px; height:30px;' type='checkbox' class='check_list' name='user[]' value='$log->id'/></center>";
             $table->data[] = $row;
+        }
+		}
+		else {
+            $table->data[] = array('', '', 'Record not found!', '');
         }
         return $table;
     }
