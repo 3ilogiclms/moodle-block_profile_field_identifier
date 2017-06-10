@@ -24,8 +24,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2016021203;        // The current plugin version (Date: YYYYMMDDXX)
+$plugin->version = 2017061000;        // The current plugin version (Date: YYYYMMDDXX)
 $plugin->requires = 2010112400;        // Requires this Moodle version
-$plugin->release = '2.8';
+$plugin->release = '3.3';
 $plugin->component = 'block_profile_field_identifier';
 $plugin->maturity = MATURITY_STABLE;
